@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		{block:Description}
+		<meta name="description" content="{MetaDescription}" />
+		{/block:Description}
+		<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+		<title>{block:TagPage}{Tag} posts - {/block:TagPage} {block:SearchPage}{lang:Search results for SearchQuery} - {/block:SearchPage}{block:PostSummary}{PostSummary} - {/block:PostSummary}{Title}</title>
+
+		<meta name="if:Search and description in sidebar" content="1"/>
+		<meta name="if:Following in sidebar" content="1"/>
+		<meta name="if:Likes in sidebar" content="1"/>
+
+		<link rel="shortcut icon" href="{Favicon}">
+		<link rel="apple-touch-icon" href="{PortraitURL-64}">
+		<link rel="alternate" type="application/rss+xml" href="{RSS}">
+
+		<meta name="color:Background" content="#008A9F" />
+		<meta name="color:Container" content="#3E53AD" />
+
+		<meta name="font:Title" content="Helvetica"/>
+		<meta name="font:Body" content="Arial, Helvetica, sans-serif"/>
+		<meta name="color:Heading text" content="{TitleColor}"/>
+
+		<meta name='text:Disqus Shortname' content=""/>
+		<meta name="text:Google Analytics ID" content=""/>
+
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'/>
+
+		<link rel="stylesheet" href="http://static.tumblr.com/mv7qm7m/0xOndx03q/reset.css">
+		<link rel="stylesheet" href="http://static.tumblr.com/mv7qm7m/1uZndx0jq/onepcssgrid.css">
+
+		<!--[if lt IE 9]><script src="http://static.tumblr.com/mv7qm7m/ubineu5mv/html5shiv.min.js"></script><![endif]-->
+
+		<style>
+			html, body {
+				height: 100%;
+				overflow: auto;
+			}
+
+			body {
+				font-family: "Pt Sans", Arial, Helvetica, sans-serif;
+				background: {color:Background};
+				font: {font:Title};
+			}
+
+			#title a {
+				color: {color: Heading text
+			};
+			}
+
+			#container {
+				background: {color:Container};
+			}
+
+			.onepcssgrid-1000 {
+				padding-top: 20px;
+			}
+
+			.photoset {
+				max-width: 100%;
+				margin-right: 5px;
+			}
+
+			#logo {
+				padding: 25px 0;
+				height: 35px;
+				width: 290px;
+				border: 2px solid #FFFFFF;
+				text-align: center;
+				margin: 0 auto;
+			}
+
+			#logo h3 {
+				font-family: "Pt Sans", Arial, Helvetica, sans-serif;
+				font-size: 28px;
+				letter-spacing: 1.8px;
+				font-weight: bold;
+				color: #FEFEFE;
+				text-align: center;
+			}
+
+			#header img {
+				max-width: 100%;
+				height: auto;
+				position: relative;
+				margin-top: 30px;
+			}
+
+			#nav {
+				font-size: 16px;
+				letter-spacing: 1px;
+				font-weight: bold;
+				text-transform: uppercase;
+				padding-top: 20px;
+				border-bottom: 3px groove #245CA5;
+				padding-bottom: 20px;
+				padding-left: 20px;
+			}
+
+			ul#nav li {
+				position: relative;
+				border: 0 none;
+				display: inline;
+			}
+
+			ul#nav li a {
+				list-style: none;
+				text-decoration: none;
+				padding: 5px;
+				color: #FFFFFF;
+				background-color: #100556;
+				border: #100556;
+			}
+			ul#nav li a:hover {
+				cursor: pointer;
+				border-radius: 5px;
+				text-decoration: underline;
+			}
+
+			#searchform {
+				text-align: center;
+				float: right;
+				margin-top: 50px;
+			}
+			#searchform input[type=text] {
+				width: 130px;
+				border: none;
+				padding: 10px;
+				background-color: #F0FFF0;
+				vertical-align: middle;
+				border: 1px solid #000066;
+				font-weight: normal;
+				letter-spacing: 1px;
+			}
+
+			#searchform input[type=text]:focus {
+				outline: none;
+				background-color: #FFFFFF;
+				border-radius: 3px;
+			}
+
+			#searchform input[type=submit] {
+				padding: 10px;
+				margin: 0 auto;
+				border: 0 none;
+				text-align: center;
+				vertical-align: middle;
+				border-bottom: 3px solid #341089;
+				border-radius: 3px;
+				background-color: #341089;
+				color: #FFFFFF;
+				background-color: #339966;
+				transition: all .5s linear;
+			}
+
+			#searchform input[type=submit]:hover {
+				cursor: pointer;
+				background-color: #00BFFF;
+				border-bottom: 3px solid #228B22;
+				transition: all .5s linear;
+			}
+
+			h1 {
+				font: {font:Title};
+				font-size: 16px;
+				font-weight: bold;
+				text-transform: uppercase;
+				margin: 20px 20px 20px 0;
+			}
+
+			.onerow {
+				padding-top: 20px;
+			}
+
+			.col8 {
+				font-size: 12px;
+				letter-spacing: 1px;
+				background-color: #FFFFFF;
+				margin-bottom: 100px;
+			}
+
+			.col8 a {
+				text-decoration: none;
+				color: #003333;
+			}
+
+			.col8 a:hover {
+				cursor: pointer;
+				color: #008B8B;
+			}
+
+			.col8 img {
+				float: left;
+				display: inline-block;
+				width: auto;
+				margin-right: 15px;
+				max-width: none;
+			}
+
+			ol#posts {
+				font-size: 14px;
+				line-height: 25px;
+				text-align: justify;
+				margin: 15px 20px 15px 20px;
+				padding-bottom: 20px;
+			}
+
+			a.button {
+				text-transform: uppercase;
+				display: inline;
+				font-weight: bold;
+				color: #330033;
+			}
+
+			a.button:hover {
+				cursor: pointer;
+				background-color: #E6E6FA;
+			}
+
+			.quote {
+				font-size: 14px;
+				text-align: justify;
+				line-height: 25px;
+				line-height: 20px;
+				margin-top: 5px;
+			}
+
+			.chat {
+				padding-top: 20px;
+			}
+
+			.chat a {
+				font-size: 14px;
+				font-weight: bold;
+				text-transform: uppercase;
+				padding-bottom: 5px;
+				color: #035E2B;
+				border-bottom: 2px solid #2E8B57;
+			}
+
+			.chat a:hover {
+				border-bottom: none;
+				cursor: pointer;
+				color: #1A4D30;
+			}
+
+			.source {
+				font-style: oblique;
+			}
+
+			.label {
+				font-weight: bold;
+			}
+
+			.meta {
+				padding-top: 30px;
+				padding-bottom: 20px;
+				font-size: 12px;
+				font-weight: bold;
+				letter-spacing: normal;
+				color: #000000;
+			}
+
+			.like_and_reblog_buttons {
+				list-style: none;
+			}
+
+			.like_and_reblog_buttons li {
+				float: left;
+				margin: 0;
+				padding-right: 8px;
+				height: 20px;
+			}
+
+			.dsq-comment-count {
+				display: none;
+			}
+
+			#pagination {
+				float: right;
+				padding-top: 40px;
+			}
+
+			#pagination li {
+				list-style: none;
+			}
+
+			#pagination a {
+				display: inline-block;
+				color: #FFFFFF;
+				text-transform: uppercase;
+				font-weight: bold;
+				text-decoration: none;
+				background-color: #2E8B57;
+				padding: 5px;
+				border: 1px solid #2E8B57;
+				margin-left: 20px;
+			}
+
+			#pagination a:hover {
+				border: 1px solid #FFFFFF;
+				text-decoration: underline;
+			}
+
+			ul.tags li a {
+				color: #FFFFFF;
+				font-size: 12px;
+				font-weight: bold;
+				text-transform: uppercase;
+				padding: 10px;
+				background-color: #465D77;
+				text-decoration: none;
+			}
+
+			ul.tags li {
+				display: inline;
+				position: relative;
+			}
+
+			ul.tags li a:hover {
+				text-decoration: underline;
+				color: #FFFFFF;
+			}
+
+			ul#share li {
+				position: relative;
+				display: inline;
+				line-height: 20px;
+				padding-top: 5px;
+				margin-top: 10px;
+			}
+
+			ul#share li a {
+				font-size: 10px;
+				font-weight: bold;
+				text-decoration: none;
+				text-transform: uppercase;
+				padding: 5px;
+				border-left: 2px solid #008080;
+				color: #03717F;
+				background-color: #C0C0C0;
+			}
+
+			ul#share li a:hover {
+				background-color: #032E45;
+				color: #FFFFFF;
+				border-radius: 2px;
+				transition: all 1s linear;
+				-webkit-transition: all 1s linear;
+			}
+
+			/** CSS MEDIA QUERIES **/
+
+			@media all and (max-width: 768px) {
+
+				#searchform {
+					margin: 0;
+				}
+
+				#pagination {
+					padding-top: 8px;
+				}
+
+				#pagination a {
+					margin-top: -45px;
+					margin-right: 15px;
+				}
+
+			}/** End 768px **/
+
+			@media all and (max-width: 360px) {
+
+				#logo h3 {
+					top: 20px;
+					font-size: 32px;
+				}
+
+				.col8 img {
+					margin-bottom: 5px;
+				}
+
+				#pagination {
+					padding-top: 8px;
+				}
+
+				#pagination a {
+					margin-top: -45px;
+					margin-right: 15px;
+				}
+				.tags {
+					margin: 0;
+				}
+
+				ul.tags li a {
+					padding: 5px;
+				}
+
+			}/** End 360px **/
+
+			@media all and (max-width: 320px) {
+				.col8 img {
+					margin-bottom: 10px;
+				}
+				#pagination a {
+					margin-top: 23px;
+					margin-right: 3px;
+				}
+
+				.tags {
+					margin: 0;
+				}
+
+				ul.tags li a {
+					padding: 5px;
+				}
+
+			} /** End 320px **/
+
+		</style>
+
+		<style></style><!-- Custom CSS code goes here! -->
+	</head>
+
+	<body>
+		<div id="container">
+			<div class="onepcssgrid-1000">
+
+				<div class="onerow">
+
+					<div id="logo">
+
+						<h3>{Title}</h3>
+
+					</div><!-- end logo --->
+
+					<div id="header">
+
+						<img src="http://static.tumblr.com/mv7qm7m/qMCnep5xt/02.jpg" alt="header img" width="1024" height="300" />
+
+					</div><!-- end header -->
+
+					<div class="col8">
+
+						<ul id="nav">
+							<li>
+								<a href="http://deveos.tumblr.com/">Home</a>
+							</li>
+
+							<li>
+								<a href="/archive">Archive</a>
+							</li>
+
+							<li>
+								<a href="http://deveos.tumblr.com/ask">Ask</a>
+							</li>
+
+							<li>
+								<a <link rel="alternate" type="application/rss+xml" href="{RSS}">RSS</a>
+								</li>
+
+								</ul><!-- end nav-->
+
+								<ol id="posts">
+								{block:Posts}{block:Text}
+
+								{block:HasTags}
+
+								<ul class="tags">
+								{block:Tags}
+								<li>
+								<a href="{TagURL}">{Tag}</a>
+								</li>
+								{/block:Tags}
+								</ul>
+								{/block:HasTags}
+
+								<li class="post text">
+								{block:Title}
+								<h1 id="title"><a href="{Permalink}">{Title}</a></h1>
+								{/block:Title}{Body}
+
+								{block:More}<a href="{Permalink}" class="button">{lang:Read more}</a>{/block:More}
+								</li>
+
+								<ul class="like_and_reblog_buttons">
+								<li>
+								{ReblogButton}
+								</li>
+								<li>
+								{LikeButton}
+								</li>
+								</ul><!-- end like_and_reblog_buttons -->
+								{/block:Text}
+
+								{block:Photo}
+
+								<li class="post photo">
+								<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
+
+								{block:Caption}
+
+								<div class="caption">
+								{Caption}
+								</div>
+								{/block:Caption}
+								</li>
+								{/block:Photo}{block:Panorama}
+
+								<li class="post panorama">
+								{LinkOpenTag}
+								<img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+								{LinkCloseTag}{block:Caption}
+								<div class="caption">
+								{Caption}
+								</div>
+								{/block:Caption}
+								</li>
+								{/block:Panorama}
+
+								{block:Photoset}
+								<div class="photoset">
+								<div class="photoset-grid" data-layout="{PhotosetLayout}">
+								{block:Photos}
+								<img src="{PhotoURL-500}" {block:Caption}alt="{Caption}"{/block:Caption} />
+								{/block:Photos}
+								</div>
+
+								{block:Caption}
+								{Caption}
+								{/block:Caption}
+								</div>
+								<ul class="like_and_reblog_buttons">
+								<li>
+								{ReblogButton}
+								</li>
+								<li>
+								{LikeButton}
+								</li>
+								</ul><!-- end like_and_reblog_buttons -->
+								{/block:Text}
+								{/block:Photoset}
+
+								{block:Quote}
+
+								<li class="quote">
+								"{Quote}"
+
+								{block:Source}
+
+								<div class="source">
+								{Source}
+								</div>
+								{/block:Source}
+								</li>
+								{/block:Quote}{block:Link}
+
+								<li class="post link">
+								<a href="{URL}" class="link" {Target}>{Name}</a>
+
+								{block:Description}
+
+								<div class="description">
+								{Description}
+								</div>
+								{/block:Description}
+								</li>
+								{/block:Link}{block:Chat}
+
+								<li class="post chat">
+								{block:Title}
+								<h2 id="title"><a href="{Permalink}">{Title}</a></h2>
+								{/block:Title}
+
+								<ul class="chat">
+								{block:Lines}
+								<li class="{Alt} user_{UserNumber}">
+								{block:Label}
+								<span class="label">{Label}</span>
+								{/block:Label}{Line}
+							</li>
+							{/block:Lines}
+						</ul>
+						</li>
+						{/block:Chat}{block:Video}
+
+						<li class="post video">
+							{Video-500}{block:Caption}
+							<div class="caption">
+								{Caption}
+							</div>
+							{/block:Caption}
+						</li>
+						{/block:Video}{block:Audio}
+
+						<li class="post audio">
+							{AudioEmbed}{block:Caption}
+							<div class="caption">
+								{Caption}
+							</div>
+							{/block:Caption}
+						</li>
+						{/block:Audio}
+						{block:Date}{block:PermalinkPage}
+
+						<ul id="share">
+							<li>
+								<a href="{ReblogURL}">Tumblr</a>
+							</li>
+							<li>
+								<a href="https://www.facebook.com/sharer.php?u={Permalink}">Facebook</a>
+							</li>
+							<li>
+								<a href="https://twitter.com/intent/tweet?url={ShortURL}">Twitter</a>
+							</li>
+							<li>
+								<a href="https://plusone.google.com/_/+1/confirm?hl=en&url={Permalink}">Google+</a>
+							</li>
+						</ul>
+						{/block:PermalinkPage}{/block:Date}
+
+						<div class="meta">
+
+							{block:Date} {MonthNumberWithZero} / {DayOfMonthWithZero} / {ShortYear} {/block:Date}
+
+						</div><!-- end meta -->
+
+						{block:IndexPage}
+
+						<!-- Disqus Comments -->
+
+						{block:IndexPage}<a class="dsq-comment-count" href="{Permalink}#disqus_thread">Comments</a>
+						<script type="text/javascript">
+							var disqus_shortname = '{text:Disqus Shortname}';
+							( function() {
+									var s = document.createElement('script');
+									s.async = true;
+									s.type = 'text/javascript';
+									s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+									(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+								}());
+						</script>
+						{/block:IndexPage}
+
+						{/block:Posts} <!-- end block posts -->
+
+						{block:IfDisqusShortname}
+
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">
+							/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+							var disqus_shortname = 'webesteque';
+							// Required - Replace <example> with your forum shortname
+							var disqus_url = '{Permalink}';
+
+							/* * * DON'T EDIT BELOW THIS LINE * * */
+							(function() {
+								var dsq = document.createElement('script');
+								dsq.type = 'text/javascript';
+								dsq.async = true;
+								dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+								(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+							})();
+						</script>
+
+						<div class=”notes”>
+							{block:PostNotes}<a name=”notes”>{PostNotes}</a>{/block:PostNotes}
+						</div>
+
+						<noscript>
+							Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+						</noscript>
+						<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+						{/block:IfDisqusShortname}
+
+						</ol>
+					</div><!-- end col8 -->
+
+					<div class="col4 last">
+						<div id="searchform">
+
+							<form action="/search" method="get">
+								<input type="text" placeholder="Search..." name="q" value="{SearchQuery}"/>
+								<input type="submit" value="GO!"/>
+							</form>
+						</div><!-- end searchform -->
+
+					</div><!-- end col4 -->
+
+					<ul id="pagination">
+
+						{block:PreviousPage}
+						<li>
+							<a href="{PreviousPage}">Previous page</a>
+						</li>
+						{/block:PreviousPage}
+						{block:NextPage}
+						<li>
+							<a href="{NextPage}">Next page</a>
+						</li>
+						{/block:NextPage}
+
+					</ul><!-- end pagination -->
+
+				</div><!-- end onerow -->
+
+			</div><!-- end container -->
+
+		</div><!-- end grid -->
+
+		{block:IfGoogleAnalyticsID}
+		<script>
+			var _gaq = [['_setAccount', '{text:Google Analytics ID}'], ['_trackPageview']];
+			( function(d, t) {
+					var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+					g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+					s.parentNode.insertBefore(g, s)
+				}(document, 'script'));
+		</script>
+		{/block:IfGoogleAnalyticsID}
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://static.tumblr.com/wgijwsy/jgemkyt9x/jquery.photoset-grid.min.js"></script>
+
+		<script>
+			$('.photoset-grid').photosetGrid();
+		</script>
+
+	</body>
+</html>
